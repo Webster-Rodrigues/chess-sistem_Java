@@ -1,9 +1,11 @@
 package application;
 
+import boardgame.Board;
+
 public class Programa {
 
 	public static void main(String[] args) {
-		System.out.println("Começo do Projeto");
+		Board board = new Board(8, 8);
 
 	}
 
