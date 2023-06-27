@@ -18,9 +18,9 @@ public abstract class ChessPiece extends Piece {
 	}
 
 	//esta função fica nessa classe genérica porque será reutilizada em outras classes
-	protected boolean IsThereOpponentPiece(Position position) {
-		ChessPiece p = (ChessPiece) getBoard().piece(position);
-		
+	//função serve para saber se tem uma peça adversária em determinada casa
+	protected boolean isThereOpponentPiece(Position position) {
+		ChessPiece p = (ChessPiece)getBoard().piece(position);
 		return p != null && p.getColor() != color;
 	}
 	

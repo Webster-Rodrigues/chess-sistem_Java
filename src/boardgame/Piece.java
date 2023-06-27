@@ -17,21 +17,19 @@ public abstract class Piece {
 	}
 	
 	//método que é uma matriz
-	public abstract boolean [][] possibleMoves();
+	public abstract boolean[][] possibleMoves();
 	
 	
 	//Método concreto utilizando o método abstrato = HookMethod (Gancho c/ a subclasse)
-	public boolean possibleMoves(Position position) {
-		return possibleMoves()[position.getRow()] [position.getColum()];
+	public boolean possibleMove(Position position) {
+		return possibleMoves()[position.getRow()][position.getColumn()];
 	}
-	
-	//varre a matriz retornada pelo possibleMoves p/ saber se tem posição disponível 
-	public boolean IsThereAnyPossibleMove() {
-		boolean [] [] matriz = possibleMoves();
-		
-		for(int i = 0; i < matriz.length; i++) {
-			for(int j = 0; j < matriz.length; j++) {
-				if(matriz[i][j]) {
+
+	public boolean isThereAnyPossibleMove() {
+		boolean[][] matriz = possibleMoves();
+		for (int i=0; i<matriz.length; i++) {
+			for (int j=0; j<matriz.length; j++) {
+				if (matriz[i][j]) {
 					return true;
 				}
 			}

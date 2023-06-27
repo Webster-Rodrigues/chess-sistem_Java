@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -11,6 +14,9 @@ public class ChessMatch {
 	private int turn;
 	private Board board;
 	private Color currentPlayer;
+	private List<Piece> piecesOnTheBoard = new ArrayList<>();
+	private List<Piece> capturedPieces = new ArrayList<>();
+	
 	
 	public ChessMatch() {
 		board = new Board (8, 8);
@@ -39,7 +45,7 @@ public class ChessMatch {
 		return currentPlayer;
 	}
 
-	public boolean [][] PossibleMoves(ChessPosition sourcePosition){
+	public boolean [][] possibleMoves(ChessPosition sourcePosition){
 		Position position = sourcePosition.toPosition();
 		validateSourcePosition(position);
 		return board.piece(position).possibleMoves();
@@ -64,14 +70,14 @@ public class ChessMatch {
 			throw new ChessException("Selecione apenas suas peças. Você não pode mover as peças do outro jogador!");
 		}
 		
-		if(!board.piece(position).IsThereAnyPossibleMove()) {
+		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Não existe movimentos possíveis para a peça selecionada");
 		}
 	}
 	
 	private void validateTargetPosition(Position source, Position target) {
-		if(!board.piece(source).possibleMoves(target)) {
-			throw new ChessException("A peça escolhida não pode se mover para a posição de destino");
+		if (!board.piece(source).possibleMove(target)) {
+			throw new ChessException("The chosen piece can't move to target position");
 		}
 	}
 	
@@ -79,12 +85,18 @@ public class ChessMatch {
 		Piece p = board.removePiece(position);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
+		
+		if(capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPieces.add(capturedPiece);
+		}
 		return capturedPiece;
 	}
 	
 	
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		piecesOnTheBoard.add(piece);
 	}
 	private void initialSetup() {
 		placeNewPiece('C', 1, new Rook(board, Color.WHITE));
