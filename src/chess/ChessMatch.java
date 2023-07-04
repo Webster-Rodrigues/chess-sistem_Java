@@ -1,12 +1,11 @@
 package chess;
 
-import java.nio.channels.IllegalSelectorException;
-import java.security.InvalidParameterException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.xml.transform.Source;
+
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -131,7 +130,7 @@ public class ChessMatch {
 			throw new IllegalStateException("Não há peça para ser promovida");
 		}
 		if(!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
-			throw new InvalidParameterException("Tipo inválido para promoção");	
+			return promoted;
 		}
 		
 		Position pos = promoted.getChessPosition().toPosition();
